@@ -1,0 +1,7 @@
+{
+  "texture_name": "textures/flying_enemy.png",
+  "columns": 12,
+  "rows": 12,
+  "start_frame": 72,
+  "total_frames": 3
+}

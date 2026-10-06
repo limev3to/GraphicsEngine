@@ -1,0 +1,227 @@
+{
+  "actors": [
+    {
+      "type": "PlayerController",
+      "prototype": true,
+      "name": "PlayerPrototype",
+      "tag": "Player",
+      "active": true,
+      "transform": {
+        "position": [ 960, 540 ],
+        "rotation": 0,
+        "scale": 2
+      },
+      "damping": 3.0,
+      "speed": 800,
+      "components": [
+        {
+          "type": "SpriteAnimatorRendererComponent",
+          "default_animation": "idle",
+          "origin": [ 0.5, 0.8 ],
+          "animations": [
+            {
+              "name": "run",
+              "texture_frames": "animations/hero_run.json",
+              "frames_per_second": 10,
+              "loop": true
+            },
+            {
+              "name": "idle",
+              "texture_frames": "animations/hero_idle.json",
+              "frames_per_second": 10,
+              "loop": false
+            },
+            {
+              "name": "hit",
+              "texture_frames": "animations/hero_hurt.json",
+              "frames_per_second": 10,
+              "loop": false
+            },
+            {
+              "name": "jump",
+              "texture_frames": "animations/hero_jump.json",
+              "frames_per_second": 10,
+              "loop": false
+            },
+            {
+              "name": "attack",
+              "texture_frames": "animations/hero_attack.json",
+              "frames_per_second": 12,
+              "loop": false
+            },
+            {
+              "name": "death",
+              "texture_frames": "animations/hero_death.json",
+              "frames_per_second": 4,
+              "loop": false
+            }
+          ]
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "linear_damping": 2.0,
+          "angular_damping": 2.0,
+          "shape": "capsule",
+          "size": [ 32, 16 ],
+          "constrain_angle": true,
+          "gravity_scale": 1
+        }
+      ]
+    },
+    {
+      "type": "EnemyController",
+      "prototype": true,
+      "name": "EnemyPrototype",
+      "tag": "enemy",
+      "active": true,
+      "health": 10,
+      "transform": {
+        "position": [ 960, 540 ],
+        "rotation": 0,
+        "scale": 2
+      },
+      "damping": 3.0,
+      "speed": 400,
+      "components": [
+        {
+          "type": "SpriteAnimatorRendererComponent",
+          "default_animation": "idle",
+          "origin": [ 0.5, 0.8 ],
+          "animations": [
+            {
+              "name": "run",
+              "texture_frames": "animations/enemy_run.json",
+              "frames_per_second": 10,
+              "loop": true
+            },
+            {
+              "name": "idle",
+              "texture_frames": "animations/enemy_idle.json",
+              "frames_per_second": 6,
+              "loop": true
+            },
+            {
+              "name": "attack",
+              "texture_frames": "animations/enemy_attack.json",
+              "frames_per_second": 6,
+              "loop": false
+            },
+            {
+              "name": "hit",
+              "texture_frames": "animations/enemy_hit.json",
+              "frames_per_second": 6,
+              "loop": false
+            },
+            {
+              "name": "death",
+              "texture_frames": "animations/enemy_death.json",
+              "frames_per_second": 3,
+              "loop": false
+            }
+          ]
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "linear_damping": 2.0,
+          "angular_damping": 2.0,
+          "shape": "capsule",
+          "size": [ 36, 48 ],
+          "constrain_angle": true,
+          "gravity_scale": 1
+        }
+      ]
+    },
+    {
+      "type": "FlyingEnemyController",
+      "prototype": true,
+      "name": "FlyingEnemyPrototype",
+      "tag": "enemy",
+      "active": true,
+      "health": 15,
+      "transform": {
+        "position": [ 960, 540 ],
+        "rotation": 0,
+        "scale": 2
+      },
+      "damping": 3.0,
+      "speed": 300,
+      "components": [
+        {
+          "type": "SpriteAnimatorRendererComponent",
+          "default_animation": "idle",
+          "animations": [
+            {
+              "name": "attack",
+              "texture_frames": "animations/flying_enemy_attack.json",
+              "frames_per_second": 6,
+              "loop": false
+            },
+            {
+              "name": "idle",
+              "texture_frames": "animations/flying_enemy_idle.json",
+              "frames_per_second": 6,
+              "loop": true
+            },
+            {
+              "name": "run",
+              "texture_frames": "animations/flying_enemy_run.json",
+              "frames_per_second": 6,
+              "loop": true
+            },
+            {
+              "name": "hit",
+              "texture_frames": "animations/flying_enemy_hit.json",
+              "frames_per_second": 6,
+              "loop": false
+            },
+            {
+              "name": "death",
+              "texture_frames": "animations/flying_enemy_death.json",
+              "frames_per_second": 6,
+              "loop": false
+            }
+          ]
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "linear_damping": 2.0,
+          "angular_damping": 2.0,
+          "shape": "circle",
+          "size": [ 36, 48 ],
+          "constrain_angle": true,
+          "gravity_scale": 0,
+          "is_sensor": true
+        }
+      ]
+    },
+      {
+        "type": "Damager",
+        "prototype": true,
+        "name": "DamagerPrototype",
+        "tag": "enemy",
+        "active": true,
+        "lifespan": 0.1,
+        "damage": 10,
+        "transform": {
+          "position": [ 960, 540 ],
+          "rotation": 0,
+          "scale": 1
+        },
+        "components": [
+          {
+            "type": "SpriteRendererComponent"
+          },
+          {
+            "type": "Box2DPhysicsComponent",
+            "linear_damping": 2.0,
+            "angular_damping": 2.0,
+            "shape": "circle",
+            "size": [ 48, 48 ],
+            "constrain_angle": true,
+            "gravity_scale": 1,
+            "is_sensor": true
+          }
+        ]
+      }
+  ]
+}
