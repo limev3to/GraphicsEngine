@@ -196,6 +196,8 @@ namespace nu::json {
             // get the data
             data.push_back(array[i].GetInt());
         }
+
+        return true;
     }
 
 }
