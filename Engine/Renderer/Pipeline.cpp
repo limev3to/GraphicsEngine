@@ -77,7 +77,7 @@ namespace nu
 		// describe one vertex buffer the pipeline will read from
 		SDL_GPUVertexBufferDescription description{
 			.slot = (uint32_t)m_vertexBufferDescriptions.size(), // todo: the index of this buffer, use the current size of m_vertexBufferDescriptions
-			.pitch = sizeof(pitch), // todo: the size in bytes of one vertex (the pitch parameter)
+			.pitch = pitch, // todo: the size in bytes of one vertex (the pitch parameter)
 			.input_rate = SDL_GPU_VERTEXINPUTRATE_VERTEX, // advance to the next vertex for each vertex drawn
 			.instance_step_rate = 0 // only used for instancing
 		};
