@@ -51,6 +51,7 @@ namespace nu
 		friend class Text;
 		friend class Texture;
 		friend class Shader;
+		friend class VertexBuffer;
 
 	private:
 		SDL_Window* m_window = nullptr;
