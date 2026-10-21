@@ -14,7 +14,6 @@ namespace nu {
 		CLASS_PROTOTYPE(Component)
 
 		virtual void Start() {}
-		//virtual void Destroyed() {}
 		virtual void OnDestroy() {}
 
 		virtual void Update(float dt) {}

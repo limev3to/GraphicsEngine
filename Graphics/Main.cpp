@@ -44,6 +44,9 @@ struct vertexUniform
 vertexUniform uniform;
 glm::vec3 cameraPosition{ 0, 0, 5 };
 
+Transform transform;
+
+
 int main()
 {
     SetWorkingDirectory("Assets");
@@ -58,28 +61,40 @@ int main()
     auto ib = std::make_shared<IndexBuffer>();
     ib->Create(indices, Engine::Get().GetRenderer());
 
-    auto vshader = Resources().Get<nu::Shader>("shaders/position.vert", Engine::Get().GetRenderer(), 1);
-    auto fshader = Resources().Get<nu::Shader>("shaders/color.frag", Engine::Get().GetRenderer(), 1);
+    auto model = Resources().Get<Model>("models/teapot-1.obj", Engine::Get().GetRenderer());
+
+    auto vshader = Resources().Get<nu::Shader>("shaders/unlit.vert", Engine::Get().GetRenderer(), 1);
+    auto fshader = Resources().Get<nu::Shader>("shaders/unlit.frag", Engine::Get().GetRenderer(), 1);
 
     auto pipeline = std::make_shared<Pipeline>();
-    pipeline->AddVertexBuffer(sizeof(Vertex));
-    // position
-    pipeline->AddVertexAttribute(
-        0,
-        SDL_GPU_VERTEXELEMENTFORMAT_FLOAT3,
-        offsetof(Vertex, position));
-    // color
-    pipeline->AddVertexAttribute(
-        1,
-        SDL_GPU_VERTEXELEMENTFORMAT_FLOAT4,
-        offsetof(Vertex, color));
+
+    pipeline->AddVertexBuffer(sizeof(Model::Vertex));
+    pipeline->AddVertexAttribute(0, SDL_GPU_VERTEXELEMENTFORMAT_FLOAT3, offsetof(Model::Vertex, position));
+    pipeline->AddVertexAttribute(1, SDL_GPU_VERTEXELEMENTFORMAT_FLOAT2, offsetof(Model::Vertex, texcoord));
+    pipeline->AddVertexAttribute(2, SDL_GPU_VERTEXELEMENTFORMAT_FLOAT3, offsetof(Model::Vertex, normal));
+    pipeline->AddVertexAttribute(3, SDL_GPU_VERTEXELEMENTFORMAT_FLOAT3, offsetof(Model::Vertex, tangent));
 
     pipeline->Create(*vshader.get(), *fshader.get(),
         Engine::Get().GetRenderer().GetGPUDevice(),
         Engine::Get().GetRenderer().GetWindow());
 
-    //float scale = 1;
-    //Color4 color{ 0, 0, 0, 1 };
+    //auto vshader = Resources().Get<nu::Shader>("shaders/position.vert", Engine::Get().GetRenderer(), 1);
+    //auto fshader = Resources().Get<nu::Shader>("shaders/color.frag", Engine::Get().GetRenderer(), 1);
+    //auto pipeline = std::make_shared<Pipeline>();
+    //pipeline->AddVertexBuffer(sizeof(Vertex));
+    //// position
+    //pipeline->AddVertexAttribute(
+    //    0,
+    //    SDL_GPU_VERTEXELEMENTFORMAT_FLOAT3,
+    //    offsetof(Vertex, position));
+    //// color
+    //pipeline->AddVertexAttribute(
+    //    1,
+    //    SDL_GPU_VERTEXELEMENTFORMAT_FLOAT2,
+    //    offsetof(Vertex, color));
+    //pipeline->Create(*vshader.get(), *fshader.get(),
+    //    Engine::Get().GetRenderer().GetGPUDevice(),
+    //    Engine::Get().GetRenderer().GetWindow());
 
     // MAIN LOOP
     bool quit = false;
@@ -118,49 +133,45 @@ int main()
 
         cameraPosition += direction * 4.0f * dt;
 
-        // MODEL MATRIX
-        // 1 0 0 0
-        // 0 1 0 0
-        // 0 0 1 0
-        // 0 0 0 1
-
-        auto mxt = glm::translate(glm::vec3{ 0.0f, 0.0f, 0.0f });
-        auto mxr = glm::eulerAngleYXZ(0.0f, 0.0f, 0.0f);  //, time * 3.0f);
-        auto mxs = glm::scale(glm::vec3( 1 ));
-
-        auto model = mxt * mxr * mxs;
+        //TRANSFORM
+        transform.rotation.z = time;
 
         // VIEW MATRIX
-        
         auto view = glm::lookAtRH(cameraPosition, cameraPosition + glm::vec3{ 0, 0, -1 }, glm::vec3{ 0, 1, 0 });
 
         // PROJECTION MATRIX
-
         float aspectRatio = Engine::Get().GetRenderer().GetWidth() / (float)Engine::Get().GetRenderer().GetHeight();
         auto projection = glm::perspective(glm::radians(70.0f), aspectRatio, 0.01f, 20.0f);
 
-        uniform.mvp = projection * view * model;
-
-        //uniform.model = mxs * mxr * mxt;
-        //uniform.model = glm::mat4(1.0f);
-        //uniform.model = glm::translate(uniform.model, glm::vec3(0.5f, 0.0f, 0.0f));
-        //uniform.model = glm::rotate(uniform.model, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-        //uniform.model = glm::scale(uniform.model, glm::vec3(0.5f, 0.5f, 0.5f));
+        // MVP
+        uniform.mvp = projection * view * transform.GetMatrix();
 
         // RENDER
+        Color tint = Color();
+        tint.r = 1.0f;
+        tint.g = 1.0f;
+        tint.b = 1.0f;
+
+
         Engine::Get().GetRenderer().BeginFrame();
 
         Engine::Get().GetRenderer().SetPipeline(*pipeline);
-        Engine::Get().GetRenderer().SetVertexBuffer(*vb);
-        Engine::Get().GetRenderer().SetIndexBuffer(*ib);
-
         Engine::Get().GetRenderer().SetVertexUniform(0, &uniform, sizeof(uniform));
-        //Engine::Get().GetRenderer().SetFragmentUniform(0, &color, sizeof(color));
+        Engine::Get().GetRenderer().SetFragmentUniform(0, &tint, sizeof(tint));
 
-        Engine::Get().GetRenderer().Draw(vb->GetVertexCount());
-        Engine::Get().GetRenderer().DrawIndex(*ib);
+        model->Draw(Engine::Get().GetRenderer());
 
         Engine::Get().GetRenderer().EndFrame();
+
+        //Engine::Get().GetRenderer().BeginFrame();
+        //Engine::Get().GetRenderer().SetPipeline(*pipeline);
+        //Engine::Get().GetRenderer().SetVertexBuffer(*vb);
+        //Engine::Get().GetRenderer().SetIndexBuffer(*ib);
+        //Engine::Get().GetRenderer().SetVertexUniform(0, &uniform, sizeof(uniform));
+        ////Engine::Get().GetRenderer().SetFragmentUniform(0, &color, sizeof(color));
+        //Engine::Get().GetRenderer().Draw(vb->GetVertexCount());
+        //Engine::Get().GetRenderer().DrawIndex(*ib);
+        //Engine::Get().GetRenderer().EndFrame();
     }
 
     // SHUTDOWN

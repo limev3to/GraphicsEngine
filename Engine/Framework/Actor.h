@@ -47,9 +47,9 @@ namespace nu {
         virtual void OnCollision(Actor* other) {  }
 
         const Transform& GetTransform() const { return m_transform; }
-        void SetPosition(const Vector2& position) { m_transform.position = position; }
-        void SetRotation(float rotation) { m_transform.rotation = rotation; }
-        void SetScale(float scale) { m_transform.scale = scale; }
+        void SetPosition(glm::vec3& position) { m_transform.position = position; }
+        void SetRotation(glm::vec3& rotation) { m_transform.rotation = rotation; }
+        void SetScale(glm::vec3& scale) { m_transform.scale = scale; }
 
 
 
