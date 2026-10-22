@@ -1,3 +1,4 @@
+
 cbuffer Uniforms : register(b0, space3)
 {
     float4 color;
@@ -17,6 +18,7 @@ Output main(Input input)
 {
 	Output output;
     output.color = color;
+    //output.color = u_texture.Sample(u_sampler, input.texcoord) * color ;
 
 	return output;
 }

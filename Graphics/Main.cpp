@@ -14,25 +14,25 @@
 
 using namespace nu;
 
-namespace nu {
-    struct Color4 {
-        float r, g, b, a;
-    };
-}
-
-struct Vertex
-{
-    Vector3 position;
-    Color4 color;
-};
-
-std::vector<Vertex> vertices =
-{
-    Vertex{ Vector3{ -0.5f, -0.5f, 0.0f}, Color4{ 1, 0, 0, 1 } }, // Bottom-Left
-    Vertex{ Vector3{ 0.5f, -0.5f, 0.0f}, Color4{ 0, 1, 0, 1 } }, // Bottom-Right
-    Vertex{ Vector3{ 0.5f, 0.5f, 0.0f}, Color4{ 0, 0, 1, 1 } }, // Top-Right
-    Vertex{ Vector3{ -0.5f, 0.5f, 0.0f}, Color4{ 0, 1, 1, 1 } }, // Top-Left
-};
+//namespace nu {
+//    struct Color4 {
+//        float r, g, b, a;
+//    };
+//}
+//
+//struct Vertex
+//{
+//    Vector3 position;
+//    Color4 color;
+//};
+//
+//std::vector<Vertex> vertices =
+//{
+//    Vertex{ Vector3{ -0.5f, -0.5f, 0.0f}, Color4{ 1, 0, 0, 1 } }, // Bottom-Left
+//    Vertex{ Vector3{ 0.5f, -0.5f, 0.0f}, Color4{ 0, 1, 0, 1 } }, // Bottom-Right
+//    Vertex{ Vector3{ 0.5f, 0.5f, 0.0f}, Color4{ 0, 0, 1, 1 } }, // Top-Right
+//    Vertex{ Vector3{ -0.5f, 0.5f, 0.0f}, Color4{ 0, 1, 1, 1 } }, // Top-Left
+//};
 
 std::vector<uint32_t> indices = { 0, 1, 2, 2, 3, 0 };
 
@@ -55,16 +55,11 @@ int main()
     Engine::Get().Initialize();
     Engine::Get().GetAudio().Initialize();
 
-    auto vb = std::make_shared<VertexBuffer>();
-    vb->Create<Vertex>(vertices, Engine::Get().GetRenderer());
+    auto model = Resources().Get<Model>("models/spot.obj", Engine::Get().GetRenderer());
+    auto texture = Resources().Get<Texture>("textures/spot_diffuse.png", Engine::Get().GetRenderer());
 
-    auto ib = std::make_shared<IndexBuffer>();
-    ib->Create(indices, Engine::Get().GetRenderer());
-
-    auto model = Resources().Get<Model>("models/teapot-1.obj", Engine::Get().GetRenderer());
-
-    auto vshader = Resources().Get<nu::Shader>("shaders/unlit.vert", Engine::Get().GetRenderer(), 1);
-    auto fshader = Resources().Get<nu::Shader>("shaders/unlit.frag", Engine::Get().GetRenderer(), 1);
+    auto vshader = Resources().Get<nu::Shader>("shaders/lit.vert", Engine::Get().GetRenderer(), 1);
+    auto fshader = Resources().Get<nu::Shader>("shaders/lit.frag", Engine::Get().GetRenderer(), 1, 1);
 
     auto pipeline = std::make_shared<Pipeline>();
 
@@ -96,14 +91,19 @@ int main()
     //    Engine::Get().GetRenderer().GetGPUDevice(),
     //    Engine::Get().GetRenderer().GetWindow());
 
+    glm::vec4 color{ 0, 0, 0, 1};
+    struct vertexUniform {
+        glm::mat4 mvp;
+    };
+     vertexUniform uniform;
+
+
     // MAIN LOOP
     bool quit = false;
-
     while (!quit) {
 
         // UPDATE
         SDL_Event event;
-
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_EVENT_QUIT) {
                 quit = true;
@@ -134,7 +134,8 @@ int main()
         cameraPosition += direction * 4.0f * dt;
 
         //TRANSFORM
-        transform.rotation.z = time;
+        transform.rotation.y = time * 400.0;
+        transform.rotation.z = time * 40.0;
 
         // VIEW MATRIX
         auto view = glm::lookAtRH(cameraPosition, cameraPosition + glm::vec3{ 0, 0, -1 }, glm::vec3{ 0, 1, 0 });
@@ -152,26 +153,16 @@ int main()
         tint.g = 1.0f;
         tint.b = 1.0f;
 
-
         Engine::Get().GetRenderer().BeginFrame();
 
         Engine::Get().GetRenderer().SetPipeline(*pipeline);
         Engine::Get().GetRenderer().SetVertexUniform(0, &uniform, sizeof(uniform));
         Engine::Get().GetRenderer().SetFragmentUniform(0, &tint, sizeof(tint));
+        Engine::Get().GetRenderer().SetFragmentTexture(0, *texture);
 
         model->Draw(Engine::Get().GetRenderer());
 
         Engine::Get().GetRenderer().EndFrame();
-
-        //Engine::Get().GetRenderer().BeginFrame();
-        //Engine::Get().GetRenderer().SetPipeline(*pipeline);
-        //Engine::Get().GetRenderer().SetVertexBuffer(*vb);
-        //Engine::Get().GetRenderer().SetIndexBuffer(*ib);
-        //Engine::Get().GetRenderer().SetVertexUniform(0, &uniform, sizeof(uniform));
-        ////Engine::Get().GetRenderer().SetFragmentUniform(0, &color, sizeof(color));
-        //Engine::Get().GetRenderer().Draw(vb->GetVertexCount());
-        //Engine::Get().GetRenderer().DrawIndex(*ib);
-        //Engine::Get().GetRenderer().EndFrame();
     }
 
     // SHUTDOWN
