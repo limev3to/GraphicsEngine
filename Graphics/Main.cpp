@@ -34,17 +34,14 @@ using namespace nu;
 //    Vertex{ Vector3{ -0.5f, 0.5f, 0.0f}, Color4{ 0, 1, 1, 1 } }, // Top-Left
 //};
 
-std::vector<uint32_t> indices = { 0, 1, 2, 2, 3, 0 };
+//std::vector<uint32_t> indices = { 0, 1, 2, 2, 3, 0 };
+//
+//struct vertexUniform
+//{
+//    glm::mat4 mvp;
+//};
 
-struct vertexUniform
-{
-    glm::mat4 mvp;
-};
-
-vertexUniform uniform;
-glm::vec3 cameraPosition{ 0, 0, 5 };
-
-Transform transform;
+//vertexUniform uniform;
 
 
 int main()
@@ -58,7 +55,7 @@ int main()
     auto model = Resources().Get<Model>("models/spot.obj", Engine::Get().GetRenderer());
     auto texture = Resources().Get<Texture>("textures/spot_diffuse.png", Engine::Get().GetRenderer());
 
-    auto vshader = Resources().Get<nu::Shader>("shaders/lit.vert", Engine::Get().GetRenderer(), 1);
+    auto vshader = Resources().Get<nu::Shader>("shaders/lit.vert", Engine::Get().GetRenderer(), 2);
     auto fshader = Resources().Get<nu::Shader>("shaders/lit.frag", Engine::Get().GetRenderer(), 1, 1);
 
     auto pipeline = std::make_shared<Pipeline>();
@@ -91,12 +88,34 @@ int main()
     //    Engine::Get().GetRenderer().GetGPUDevice(),
     //    Engine::Get().GetRenderer().GetWindow());
 
+    // UNIFORMS
     glm::vec4 color{ 0, 0, 0, 1};
-    struct vertexUniform {
+    struct VertexUniform {
         glm::mat4 mvp;
+        glm::mat4 model;
     };
-     vertexUniform uniform;
+    
+    VertexUniform vertexUniform;
 
+    struct LightUniform {
+        glm::vec3 lightDirection;
+        float padding1;
+        glm::vec3 lightColor;
+        float lightIntensity;
+        glm::vec3 ambient;
+        float padding2;
+    };
+
+    LightUniform lightUniform{
+        .lightDirection{ 0, -1, 0},
+        .lightColor{ 0, 0, 1},
+        .lightIntensity{ 1 },
+        .ambient{ 0.1f }
+    };
+
+    glm::vec3 cameraPosition{ 0, 0, 5 };
+
+    Transform transform;
 
     // MAIN LOOP
     bool quit = false;
@@ -133,9 +152,13 @@ int main()
 
         cameraPosition += direction * 4.0f * dt;
 
+        lightUniform.lightIntensity = std::sin(time) * 0.5f + 0.5f;
+
         //TRANSFORM
-        transform.rotation.y = time * 400.0;
-        transform.rotation.z = time * 40.0;
+        //transform.rotation.z = time * 400.0;
+        //transform.rotation.x = time * 40.0;
+        transform.rotation.y = time * 90.0;
+
 
         // VIEW MATRIX
         auto view = glm::lookAtRH(cameraPosition, cameraPosition + glm::vec3{ 0, 0, -1 }, glm::vec3{ 0, 1, 0 });
@@ -145,7 +168,8 @@ int main()
         auto projection = glm::perspective(glm::radians(70.0f), aspectRatio, 0.01f, 20.0f);
 
         // MVP
-        uniform.mvp = projection * view * transform.GetMatrix();
+        vertexUniform.model = transform.GetMatrix();
+        vertexUniform.mvp = projection * view * vertexUniform.model;
 
         // RENDER
         Color tint = Color();
@@ -156,7 +180,8 @@ int main()
         Engine::Get().GetRenderer().BeginFrame();
 
         Engine::Get().GetRenderer().SetPipeline(*pipeline);
-        Engine::Get().GetRenderer().SetVertexUniform(0, &uniform, sizeof(uniform));
+        Engine::Get().GetRenderer().SetVertexUniform(0, &vertexUniform, sizeof(vertexUniform));
+        Engine::Get().GetRenderer().SetVertexUniform(1, &lightUniform, sizeof(lightUniform));
         Engine::Get().GetRenderer().SetFragmentUniform(0, &tint, sizeof(tint));
         Engine::Get().GetRenderer().SetFragmentTexture(0, *texture);
 
