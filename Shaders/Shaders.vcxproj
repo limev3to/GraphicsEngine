@@ -92,6 +92,9 @@
     <FxCompile Include="unlit.frag.hlsl" />
     <FxCompile Include="unlit.vert.hlsl" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Lighting.hlsli" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
