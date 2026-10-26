@@ -19,10 +19,10 @@
     <FxCompile Include="unlit.vert.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="lit.frag.hlsl">
+    <FxCompile Include="gouraud.frag.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="lit.vert.hlsl">
+    <FxCompile Include="gouraud.vert.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>
