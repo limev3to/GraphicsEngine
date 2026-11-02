@@ -5,6 +5,7 @@
 #include "Renderer/IndexBuffer.h"
 #include "Renderer/Pipeline.h"
 #include "Resources/ResourceManager.h"
+#include "Framework/Scene.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
@@ -30,6 +31,11 @@ int main()
     // INITIALIZATION
     Engine::Get().Initialize();
     Engine::Get().GetAudio().Initialize();
+
+    Scene scene;
+    scene.Load("scenes/scene.json");
+
+
 
     auto model = Resources().Get<Model>("models/spot.obj", Engine::Get().GetRenderer());
     auto texture = Resources().Get<Texture>("textures/spot_diffuse.png", Engine::Get().GetRenderer());

@@ -6,7 +6,7 @@ namespace nu
 {
 	FACTORY_REGISTER(LightComponent)
 
-		void LightComponent::Draw(const Renderer& renderer)
+	void LightComponent::Draw(const Renderer& renderer)
 	{
 	}
 }

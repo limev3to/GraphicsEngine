@@ -4,8 +4,19 @@
     <Filter Include="Assets">
       <UniqueIdentifier>{1389e3ff-c880-4d2c-92c7-f252abdcb803}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Scenes">
+      <UniqueIdentifier>{038cdfee-cabf-404a-a4a8-50c060d0f551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Materials">
+      <UniqueIdentifier>{3f0a1205-c7f3-4407-8810-990f0f1b169b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Graphics\Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Build\Assets\scenes\scene.json">
+      <Filter>Assets\Scenes</Filter>
+    </None>
   </ItemGroup>
 </Project>

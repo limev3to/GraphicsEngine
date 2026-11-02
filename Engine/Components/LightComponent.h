@@ -8,7 +8,7 @@ namespace nu
 	public:
 		CLASS_PROTOTYPE(LightComponent)
 
-			void Draw(const Renderer& renderer) override;
+		void Draw(const Renderer& renderer) override;
 
 	private:
 	};
