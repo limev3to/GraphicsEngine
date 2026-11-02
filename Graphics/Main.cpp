@@ -84,7 +84,7 @@ int main()
         .intensity{ 1 },
         .ambient{ 0.1f },
         .innerCutoff{ 0.3f },
-        .outerCutoff{ 1.6f }
+        .outerCutoff{ 0.4f }
     };
 
     CHECK_UNIFORM_BOUNDARY(LightUniform);
@@ -147,9 +147,9 @@ int main()
         if (Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_3))
         {
             lightUniform.type = LightType::Spot;
-            lightUniform.position = glm::vec3{ 0, 20, 0 };
-            lightUniform.innerCutoff = glm::cos(glm::radians(10.0f));
-            lightUniform.outerCutoff = glm::cos(glm::radians(15.0f));
+            lightUniform.position = glm::vec3{ 0, 1, 0 };
+            lightUniform.innerCutoff = glm::cos(glm::radians(4.0f));
+            lightUniform.outerCutoff = glm::cos(glm::radians(5.0f));
         }
 
         //scale = sin(Engine::Get().GetTime().GetTime());
