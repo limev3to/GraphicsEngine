@@ -162,7 +162,7 @@ namespace nu
         SDL_BindGPUGraphicsPipeline(m_renderPass, pipeline.m_gpuPipeline);
     }
 
-    void Renderer::SetVertexBuffer(const VertexBuffer& vertexBuffer)
+    void Renderer::SetVertexBuffer(const VertexBuffer& vertexBuffer) const
     {
         // describe which buffer to bind and where to start reading from
         SDL_GPUBufferBinding binding{
@@ -186,7 +186,7 @@ namespace nu
         );
     }
 
-    void Renderer::SetIndexBuffer(const IndexBuffer& indexBuffer)
+    void Renderer::SetIndexBuffer(const IndexBuffer& indexBuffer) const
     {
         // describe which buffer to bind and where to start reading from
         SDL_GPUBufferBinding binding{
@@ -240,14 +240,14 @@ namespace nu
 
     }
 
-    void Renderer::SetVertexUniform(uint32_t slot, const void* data, uint32_t size)
+    void Renderer::SetVertexUniform(UniformSlot slot, const void* data, uint32_t size) const
     {
-        SDL_PushGPUVertexUniformData(m_commandBuffer, slot, data, size);
+        SDL_PushGPUVertexUniformData(m_commandBuffer, (uint32_t)slot, data, size);
     }
 
-    void Renderer::SetFragmentUniform(uint32_t slot, const void* data, uint32_t size)
+    void Renderer::SetFragmentUniform(UniformSlot slot, const void* data, uint32_t size) const
     {
-        SDL_PushGPUFragmentUniformData(m_commandBuffer, slot, data, size);
+        SDL_PushGPUFragmentUniformData(m_commandBuffer, (uint32_t)slot, data, size);
     }
 
     void Renderer::SetFragmentTexture(uint32_t slot, const Texture& texture)

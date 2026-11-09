@@ -4,8 +4,11 @@
 #include "Renderer/VertexBuffer.h"
 #include "Renderer/IndexBuffer.h"
 #include "Renderer/Pipeline.h"
-#include "Resources/ResourceManager.h"
 #include "Framework/Scene.h"
+
+#include "Components/CameraComponent.h";
+
+#include "Resources/ResourceManager.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
@@ -13,7 +16,7 @@
 #include <glm/gtx/euler_angles.hpp>
 #include <glm/gtx/transform.hpp>
 
-#define CHECK_UNIFORM_BOUNDARY(T) static_assert((sizeof(T) % 16) == 0);
+#define MAX_LIGHTS 8
 
 using namespace nu;
 
@@ -30,12 +33,10 @@ int main()
 
     // INITIALIZATION
     Engine::Get().Initialize();
-    Engine::Get().GetAudio().Initialize();
+    //Engine::Get().GetAudio().Initialize();
 
     Scene scene;
     scene.Load("scenes/scene.json");
-
-
 
     auto model = Resources().Get<Model>("models/spot.obj", Engine::Get().GetRenderer());
     auto texture = Resources().Get<Texture>("textures/spot_diffuse.png", Engine::Get().GetRenderer());
@@ -56,44 +57,66 @@ int main()
         Engine::Get().GetRenderer().GetWindow());
 
     // UNIFORMS
-    glm::vec4 color{ 1, 1, 1, 1};
+    
     struct VertexUniform {
         glm::mat4 mvp;
         glm::mat4 model;
         glm::vec3 cameraPosition;
         float padding1;
     };
-
+    
     CHECK_UNIFORM_BOUNDARY(VertexUniform);
-   
+
     VertexUniform vertexUniform;
 
-    struct LightUniform {
+    struct Light {
         glm::vec3 position;
         LightType type;
         glm::vec3 direction;
         float range;
         glm::vec3 color;
         float intensity;
-        glm::vec3 ambient;
         float innerCutoff;
         float outerCutoff;
-        glm::vec3 padding;
+        glm::vec2 padding;
     };
 
-    LightUniform lightUniform{
-        .position{ 10, 10, 10 },
-        .type{ LightType::Point },
-        .direction{ 0, -1, 0},
-        .range{ 40 },
-        .color{ 1, 1, 1},
-        .intensity{ 1 },
-        .ambient{ 0.1f },
-        .innerCutoff{ 0.3f },
-        .outerCutoff{ 0.4f }
+    struct LightUniform
+    {
+        Light lights[MAX_LIGHTS];
+        uint32_t numLights;
+        glm::vec3 ambient;
     };
 
     CHECK_UNIFORM_BOUNDARY(LightUniform);
+    LightUniform lightUniform;
+
+    Light light1{
+        .position{ 2, 2, 4 },
+        .type{ LightType::Point },
+        .direction{ 0, -1, 0 },
+        .range{ 40.0f },
+        .color{ 1, 1, 1 },
+        .intensity{ 1 },
+        .innerCutoff = glm::cos(glm::radians(40.0f)),
+        .outerCutoff = glm::cos(glm::radians(45.0f))
+    };
+
+    Light light2{
+        .position{ 10, 10, 10 },
+        .type{ LightType::Point },
+        .direction{ 0, -1, 0 },
+        .range{ 40 },
+        .color{ 1, 0.3f, 0.3f },
+        .intensity{ 1 },
+        .innerCutoff{ 0.3f },
+        .outerCutoff{ 1.6f }
+    };
+
+    lightUniform.lights[0] = light1;
+    lightUniform.lights[1] = light2;
+    lightUniform.numLights = 2;
+    lightUniform.ambient = glm::vec3{ 0.2f };
 
     struct MaterialUniform {
         glm::vec4 color;
@@ -102,19 +125,52 @@ int main()
         float shininess;
         glm::vec3 padding;
     };
-
     CHECK_UNIFORM_BOUNDARY(MaterialUniform);
 
     MaterialUniform materialUniform{
         .color{ 1, 1, 1, 1},
         .tiling{ 1.0f, 1.0f },
         .offset{ 0.0f, 0.0f },
-        .shininess{ 64.0f }
+        .shininess{ 128.0f }
     };
 
-    vertexUniform.cameraPosition = glm::vec3{ 0, 0, 5 };
-
     Transform transform;
+    transform.scale = glm::vec3{ 4.0f };
+
+
+    //Light light0 {
+    //    .position{ 0.5f, 5, 2 },
+    //    .type = (uint32_t)LightType::Point,
+    //    .color{ 0.3f, 1, 0.3f },
+    //    .intensity{ 1 }
+    //    };
+    //LightUniform lightUniform{
+    //    .lights = { light0, light1, light2 },
+    //    .numLights = 3,
+    //    .ambient = { 0.4f, 0.4f, 0.4f }
+    //};
+    //glm::vec4 color{ 1, 1, 1, 1};
+    //LightUniform lightUniform{
+    //    .position{ 10, 10, 10 },
+    //    .type{ LightType::Point },
+    //    .direction{ 0, -1, 0},
+    //    .range{ 40 },
+    //    .color{ 1, 1, 1},
+    //    .intensity{ 1 },
+    //    .ambient{ 0.1f },
+    //    .innerCutoff{ 0.3f },
+    //    .outerCutoff{ 0.4f }
+    //};
+    //vertexUniform.cameraPosition = glm::vec3{ 0, 0, 5 };
+        //if (Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_1)) lightUniform.type = LightType::Directional;
+        //if (Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_2)) lightUniform.type = LightType::Point;
+        //if (Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_3))
+        //{
+        //    lightUniform.type = LightType::Spot;
+        //    lightUniform.position = glm::vec3{ 0, 1, 0 };
+        //    lightUniform.innerCutoff = glm::cos(glm::radians(4.0f));
+        //    lightUniform.outerCutoff = glm::cos(glm::radians(5.0f));
+        //}
 
     // MAIN LOOP
     bool quit = false;
@@ -138,60 +194,33 @@ int main()
         float dt = Engine::Get().GetTime().GetDeltaTime();
         float time = Engine::Get().GetTime().GetTime();
 
-        glm::vec3 direction{ 0 };
-        if (Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_A)) direction.x = -1;
-        if (Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_D)) direction.x = +1;
-        if (Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_E)) direction.y = -1;
-        if (Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_Q)) direction.y = +1;
-        if (Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_W)) direction.z = -1;
-        if (Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_S)) direction.z = +1;
+        // SCENE
+        scene.Update(dt);
 
-        vertexUniform.cameraPosition += direction * 4.0f * dt;
+        //lightUniform.lights[0].position = glm::eulerAngleY(time) * glm::vec4{ 0, 0, 10, }
+        //lightUniform.lights[1].position = glm::eulerAngleX(time * 0.5f) * glm::vec4{ 0, }
 
-        if (Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_1)) lightUniform.type = LightType::Directional;
-        if (Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_2)) lightUniform.type = LightType::Point;
-        if (Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_3))
-        {
-            lightUniform.type = LightType::Spot;
-            lightUniform.position = glm::vec3{ 0, 1, 0 };
-            lightUniform.innerCutoff = glm::cos(glm::radians(4.0f));
-            lightUniform.outerCutoff = glm::cos(glm::radians(5.0f));
-        }
-
-        //scale = sin(Engine::Get().GetTime().GetTime());
-        //color.r = sin(Engine::Get().GetTime().GetTime() * 3.0f) * 0.5f + 0.5f;
-        //materialUniform.offset.x += time * 0.2;
-        //materialUniform.tiling = glm::vec3{ 2.0f };
-        //lightUniform.lightIntensity = std::sin(time) * 0.5f + 0.5f;
-        
-        //TRANSFORM
-        //transform.rotation.z = time * 400.0;
-        //transform.rotation.x = time * 40.0;
-        transform.rotation.y = time * 90.0;
-
-
-        // VIEW MATRIX
-        auto view = glm::lookAtRH(vertexUniform.cameraPosition, vertexUniform.cameraPosition + glm::vec3{ 0, 0, -1 }, glm::vec3{ 0, 1, 0 });
-
-        // PROJECTION MATRIX
-        float aspectRatio = Engine::Get().GetRenderer().GetWidth() / (float)Engine::Get().GetRenderer().GetHeight();
-        auto projection = glm::perspective(glm::radians(70.0f), aspectRatio, 0.01f, 20.0f);
+        // CAMERA
+        auto camera = scene.GetActorByName("Camera");
+        auto cameraComponent = camera->GetComponent<CameraComponent>();
+        vertexUniform.cameraPosition = camera->GetTransform().position;
 
         // MVP
         vertexUniform.model = transform.GetMatrix();
-        vertexUniform.mvp = projection * view * vertexUniform.model;
+        vertexUniform.mvp = cameraComponent->GetProjection() * cameraComponent->GetView() * vertexUniform.model;
 
         // RENDER
         Engine::Get().GetRenderer().BeginFrame();
 
         Engine::Get().GetRenderer().SetPipeline(*pipeline);
-        Engine::Get().GetRenderer().SetVertexUniform(0, &vertexUniform, sizeof(vertexUniform));
-        Engine::Get().GetRenderer().SetVertexUniform(1, &lightUniform, sizeof(lightUniform));
-        Engine::Get().GetRenderer().SetVertexUniform(2, &materialUniform, sizeof(materialUniform));
+        Engine::Get().GetRenderer().SetVertexUniform(UniformSlot::Object, &vertexUniform, sizeof(vertexUniform));
+        Engine::Get().GetRenderer().SetVertexUniform(UniformSlot::Light, &lightUniform, sizeof(lightUniform));
+        Engine::Get().GetRenderer().SetVertexUniform(UniformSlot::Material, &materialUniform, sizeof(materialUniform));
 
-        Engine::Get().GetRenderer().SetFragmentUniform(0, &vertexUniform, sizeof(vertexUniform));
-        Engine::Get().GetRenderer().SetFragmentUniform(1, &lightUniform, sizeof(lightUniform));
-        Engine::Get().GetRenderer().SetFragmentUniform(2, &materialUniform, sizeof(materialUniform));
+        Engine::Get().GetRenderer().SetFragmentUniform(UniformSlot::Object, &vertexUniform, sizeof(vertexUniform));
+        Engine::Get().GetRenderer().SetFragmentUniform(UniformSlot::Light, &lightUniform, sizeof(lightUniform));
+        Engine::Get().GetRenderer().SetFragmentUniform(UniformSlot::Material, &materialUniform, sizeof(materialUniform));
+
         Engine::Get().GetRenderer().SetFragmentTexture(0, *texture);
 
         model->Draw(Engine::Get().GetRenderer());
@@ -201,8 +230,8 @@ int main()
 
     // SHUTDOWN
 
-    Engine::Get().GetAudio().Shutdown();
-
     Engine::Get().Shutdown();
+    //Engine::Get().GetAudio().Shutdown();
+
     return 0;
 }

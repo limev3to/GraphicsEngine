@@ -1,5 +1,5 @@
 #pragma once
-#include "Framework/Component.h"
+#include "Components/Component.h"
 
 namespace nu {
 	class RendererComponent : public Component {

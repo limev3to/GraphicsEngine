@@ -1,5 +1,5 @@
 #pragma once
-#include "Framework/Component.h"
+#include "Components/Component.h"
 #include "glm/glm.hpp"
 
 namespace nu

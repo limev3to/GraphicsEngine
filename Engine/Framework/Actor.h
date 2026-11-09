@@ -1,6 +1,6 @@
 #pragma once
 #include "Framework/Object.h"
-#include "Framework/Component.h"
+#include "Components/Component.h"
 #include "Math/Transform.h"
 #include "Renderer/Model.h"
 #include "Resources/Resource.h"
@@ -17,7 +17,7 @@ namespace nu {
         std::string name;
         std::string tag;
         Transform transform;
-        Vector2 velocity = { 0.0f, 0.0f };
+        glm::vec2 velocity = { 0.0f, 0.0f };
         float lifespan{ 0.0f };
         bool persistent = false;
     };
@@ -47,11 +47,10 @@ namespace nu {
         virtual void OnCollision(Actor* other) {  }
 
         const Transform& GetTransform() const { return m_transform; }
-        void SetPosition(glm::vec3& position) { m_transform.position = position; }
-        void SetRotation(glm::vec3& rotation) { m_transform.rotation = rotation; }
-        void SetScale(glm::vec3& scale) { m_transform.scale = scale; }
-
-
+        void SetPosition(const glm::vec3& position) { m_transform.position = position; }
+        void SetRotation(const glm::vec3& rotation) { m_transform.SetRotation(rotation); }
+        void SetRotation(const glm::quat& rotation) { m_transform.SetRotation(rotation); }
+        void SetScale(const glm::vec3& scale) { m_transform.scale = scale; }
 
         const std::string& GetName() const { return m_name; }
         const std::string& GetTag() const { return m_tag; }
