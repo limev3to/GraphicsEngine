@@ -30,9 +30,6 @@ namespace nu
 
         glm::vec3 direction{ 0 };
 
-        //direction += (float)(Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_D) - Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_A)) * m_owner->GetTransform().Right();
-        //direction += (float)(Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_SPACE) - Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_LSHIFT)) * m_owner->GetTransform().Up();
-        //direction += (float)(Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_W) - Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_S)) * m_owner->GetTransform().Forward();
         if (Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_A)) direction -= m_owner->GetTransform().Right();
         if (Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_D)) direction += m_owner->GetTransform().Right();
         if (Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_E)) direction += m_owner->GetTransform().Up();

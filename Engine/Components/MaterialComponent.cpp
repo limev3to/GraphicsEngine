@@ -1,4 +1,4 @@
-#include "pch.h"
+	#include "pch.h"
 #include "MaterialComponent.h"
 #include "Core/Factory.h"
 
@@ -8,5 +8,6 @@ namespace nu
 
 		void MaterialComponent::Draw(const Renderer& renderer)
 	{
+
 	}
 }

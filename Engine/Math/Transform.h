@@ -20,7 +20,7 @@ namespace nu
         void SetRotation(const glm::vec3& euler) { rotation = glm::quat(glm::radians(euler)); }
         void SetRotation(const glm::quat& qrotation) { rotation = glm::normalize(qrotation); }
 
-        glm::mat4 GetMatrix()
+        glm::mat4 GetMatrix() const
         {
             auto mxt = glm::translate(position);
             auto mxr = glm::toMat4(rotation);
@@ -39,7 +39,10 @@ namespace nu
             glm::vec3 euler;
             JSON_READ_NAME(value, "rotation", euler);
             SetRotation(euler);
+        
+            JSON_READ_NAME(value, "scale", scale);
         }
+
 
     };
 }

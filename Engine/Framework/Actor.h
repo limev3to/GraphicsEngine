@@ -80,7 +80,7 @@ namespace nu {
     protected:
         std::string m_tag;
 
-        Transform m_transform;
+        Transform m_transform{};
         float m_lifespan{ 0 };
         bool m_destroyed{ false };
         bool m_persistent = 0;
