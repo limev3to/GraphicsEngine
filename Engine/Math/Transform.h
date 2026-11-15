@@ -36,9 +36,8 @@ namespace nu
         void Read(const json::value_t& value) {
             JSON_READ(value, position);
 
-            glm::vec3 euler;
-            JSON_READ_NAME(value, "rotation", euler);
-            SetRotation(euler);
+            glm::vec3 euler{};
+            if (JSON_READ_NAME(value, "rotation", euler))SetRotation(euler);
         
             JSON_READ_NAME(value, "scale", scale);
         }

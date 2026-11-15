@@ -35,7 +35,7 @@
         {
           "type": "LightComponent",
           "light_type": "directional",
-          "color": [ 0.5, 0.5, 0.5 ],
+          "color": [ 1, 0, 0 ],
           "intensity": 1.0
         }
       ]
@@ -45,15 +45,34 @@
       "type": "Actor",
       "tag": "Light",
       "transform": {
-        "position": [ 5, 5, 0 ]
+        "position": [ 1, 1, 0 ]
       },
       "components": [
         {
           "type": "LightComponent",
           "light_type": "point",
-          "color": [ 1, 1, 1 ],
+          "color": [ 0, 1, 0 ],
           "intensity": 1.0,
           "range": 40.0
+        }
+      ]
+    },
+    {
+      "name": "Light3",
+      "type": "Actor",
+      "tag": "Light",
+      "transform": {
+        "position": [ 1, 1, 0 ],
+        "rotation": [ -60, 90, 0 ]
+      },
+      "components": [
+        {
+          "type": "LightComponent",
+          "light_type": "spot",
+          "color": [ 0, 0, 1 ],
+          "intensity": 1.0,
+          "inner_angle": 15,
+          "outer_angle": 20
         }
       ]
     },
@@ -63,13 +82,26 @@
       "tag": "Spot",
       "transform": {
         "position": [ 0, 0, 0 ],
-        "rotation": [ 0, 0, 0 ]
+        "rotation": [ 0, 180, 0 ]
       },
       "components": [
         {
           "type": "ModelComponent",
           "model": "models/spot.obj",
           "materials": [ "materials/spot.instance.json" ]
+        }
+      ]
+    },
+    {
+      "name": "Helmet",
+      "type": "Actor",
+      "transform": {
+        "position": [ -2, 0, 0 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/flight-helmet/flighthelmet.gltf"
         }
       ]
     }

@@ -45,7 +45,6 @@ namespace nu {
 		m_pendingActors.clear();
 	}
 
-
 	bool Scene::Load(const std::string& sceneName)
 	{
 		json::document_t document;
@@ -130,6 +129,7 @@ namespace nu {
 		renderer.SetFragmentUniform(UniformSlot::Light, &lightUniform, sizeof(lightUniform));
 
 		for (auto& actor : m_actors) {
+			if (actor && actor->IsActive())
 			actor->Draw(renderer);
 		}
 	}

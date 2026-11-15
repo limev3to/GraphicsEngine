@@ -24,6 +24,7 @@ int main()
 
     // INITIALIZATION
     Engine::Get().Initialize();
+    Engine::Get().GetAudio().Initialize();
 
     Scene scene;
     scene.Load("scenes/scene.json");
@@ -64,6 +65,7 @@ int main()
     }
 
     // SHUTDOWN
+    Engine::Get().GetAudio().Shutdown();
 
     Engine::Get().Shutdown();
 

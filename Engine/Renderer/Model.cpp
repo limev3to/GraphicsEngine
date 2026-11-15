@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "Resources/ResourceManager.h"
 #include "Texture.h"
+#include "Core/File.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -30,6 +31,9 @@ namespace nu
 
 		// todo: start processing the scene from the root node with ProcessNode(node, scene, renderer)
 		// the root node is scene->mRootNode
+		// texture paths in the model are relative to the model file
+		std::string directory = GetParentDirectory(filename) + "/";
+		LoadMaterials(scene, directory, renderer);
 		ProcessNode(scene->mRootNode, scene, renderer);
 
 		return true;
@@ -70,7 +74,7 @@ namespace nu
 		for (unsigned int i = 0; i < node->mNumChildren; i++)
 		{
 			// todo: process the child node with ProcessNode(child, scene, renderer)
-			ProcessNode(*node->mChildren, scene, renderer);
+			ProcessNode(node->mChildren[i], scene, renderer);
 			// the children are stored in node->mChildren, this is recursive so every node in the tree gets processed
 			
 		}
