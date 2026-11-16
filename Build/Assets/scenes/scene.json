@@ -35,44 +35,8 @@
         {
           "type": "LightComponent",
           "light_type": "directional",
-          "color": [ 1, 0, 0 ],
+          "color": [ 1, 1, 1 ],
           "intensity": 1.0
-        }
-      ]
-    },
-    {
-      "name": "Light2",
-      "type": "Actor",
-      "tag": "Light",
-      "transform": {
-        "position": [ 1, 1, 0 ]
-      },
-      "components": [
-        {
-          "type": "LightComponent",
-          "light_type": "point",
-          "color": [ 0, 1, 0 ],
-          "intensity": 1.0,
-          "range": 40.0
-        }
-      ]
-    },
-    {
-      "name": "Light3",
-      "type": "Actor",
-      "tag": "Light",
-      "transform": {
-        "position": [ 1, 1, 0 ],
-        "rotation": [ -60, 90, 0 ]
-      },
-      "components": [
-        {
-          "type": "LightComponent",
-          "light_type": "spot",
-          "color": [ 0, 0, 1 ],
-          "intensity": 1.0,
-          "inner_angle": 15,
-          "outer_angle": 20
         }
       ]
     },
@@ -93,15 +57,58 @@
       ]
     },
     {
-      "name": "Helmet",
+      "name": "HorsePrototype",
       "type": "Actor",
+      "prototype": true,
       "transform": {
-        "position": [ -2, 0, 0 ]
+        "scale": [ 50, 50, 50 ]
       },
       "components": [
         {
           "type": "ModelComponent",
-          "model": "models/flight-helmet/flighthelmet.gltf"
+          "model": "models/horse.glb"
+        }
+      ]
+    },
+    {
+      "name": "BullPrototype",
+      "type": "Actor",
+      "prototype": true,
+      "transform": {
+        "scale": [ 50, 50, 50 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/bull.glb"
+        }
+      ]
+    },
+    {
+      "name": "DonkeyPrototype",
+      "type": "Actor",
+      "prototype": true,
+      "transform": {
+        "scale": [ 0.5, 0.5, 0.5 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/donkey.fbx"
+        }
+      ]
+    },
+    {
+      "name": "CowPrototype",
+      "type": "Actor",
+      "prototype": true,
+      "transform": {
+        "scale": [ 0.5, 0.5, 0.5 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "model": "models/cow2.fbx"
         }
       ]
     }

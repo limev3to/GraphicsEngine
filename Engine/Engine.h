@@ -7,6 +7,7 @@
 #include "Core/File.h"
 #include "Serialization/Json.h"
 #include "Core/StringUtils.h"
+#include "Editor/Editor.h"
 
 
 #include "Renderer/Text.h"
@@ -44,6 +45,7 @@ namespace nu {
 		ParticleSystem& GetPS() { return m_particleSystem; }
 		Audio& GetAudio() { return m_audio; }
 
+		Editor& GetEditor() { return *m_editor; }
 
 
 	private:
@@ -56,6 +58,8 @@ namespace nu {
 		ParticleSystem m_particleSystem;
 
 		Time m_time;
+
+		std::unique_ptr <Editor > m_editor;
 
 	};
 
