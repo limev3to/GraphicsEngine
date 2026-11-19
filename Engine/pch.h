@@ -27,8 +27,6 @@
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
-#include <fmod.hpp>
-#include <fmod_errors.h>
 #include <rapidjson/istreamwrapper.h>
 #include <rapidjson/error/en.h>
 #include <glm/glm.hpp>

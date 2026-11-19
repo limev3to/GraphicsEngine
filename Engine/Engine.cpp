@@ -6,20 +6,14 @@ namespace nu {
 
 	bool Engine::Initialize() {
 		m_renderer.Initialize("Game Engine", 1280, 1024);
-		m_particleSystem.Initialize();
-		
 		m_editor = std::make_unique<Editor>();
 		m_editor->Initialize(m_renderer);
-
-		m_audio.Initialize();
 		m_input.Initialize();
 		return true;
 	}
 
 	void Engine::Shutdown() {
 		m_input.Shutdown();
-		m_audio.Shutdown();
-		m_particleSystem.Shutdown();
 		m_editor->Shutdown();
 		m_renderer.Shutdown();
 	}
@@ -27,8 +21,5 @@ namespace nu {
 	void Engine::Update() {
 		m_input.Update();
 		m_time.Tick();
-		m_particleSystem.Update(m_time.GetDeltaTime());
 	}
-
 }
-

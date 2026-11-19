@@ -4,6 +4,7 @@
 #include "Math/Transform.h"
 #include "Renderer/Model.h"
 #include "Resources/Resource.h"
+#include "Math/Transform.h"
 
 #include <string>
 #include <memory>
@@ -64,6 +65,8 @@ namespace nu {
         bool GetDestroyed() const { return m_destroyed; }
 
         bool GetPersistent() const { return m_persistent; }
+
+        void UpdateGui() override;
 
         void AddComponent(std::unique_ptr<Component> component);
 

@@ -4,19 +4,34 @@
     <Filter Include="Assets">
       <UniqueIdentifier>{1389e3ff-c880-4d2c-92c7-f252abdcb803}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Assets\Shaders">
-      <UniqueIdentifier>{d066915a-8e1d-455c-8aa3-b98ea7880a8a}</UniqueIdentifier>
+    <Filter Include="Assets\Scenes">
+      <UniqueIdentifier>{038cdfee-cabf-404a-a4a8-50c060d0f551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Materials">
+      <UniqueIdentifier>{3f0a1205-c7f3-4407-8810-990f0f1b169b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="..\Graphics\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\Shaders\color.frag.hlsl">
-      <Filter>Assets\Shaders</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\Shaders\position.vert.hlsl">
-      <Filter>Assets\Shaders</Filter>
-    </CustomBuild>
+    <None Include="..\Build\Assets\scenes\scene.json">
+      <Filter>Assets\Scenes</Filter>
+    </None>
+    <None Include="..\Build\Assets\materials\phong.material.json">
+      <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\Build\Assets\materials\spot.instance.json">
+      <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\Build\Assets\materials\multi.material.json">
+      <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\Build\Assets\materials\ground.instance.json">
+      <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\Build\Assets\materials\lava.instance.json">
+      <Filter>Assets\Materials</Filter>
+    </None>
   </ItemGroup>
 </Project>

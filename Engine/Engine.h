@@ -18,9 +18,7 @@
 // Systems
 #include "Renderer/Renderer.h"
 #include "Input/Input.h"
-#include "Audio/Audio.h"
 #include "Core/GameTime.h"
-#include "Renderer/ParticleSystem.h"
 #include "Resources/ResourceManager.h"
 
 // framework
@@ -36,17 +34,12 @@ namespace nu {
 
 		bool Initialize();
 		void Shutdown();
-
 		void Update();
 
 		Input& GetInput() { return m_input; }
 		Renderer& GetRenderer() { return m_renderer; }
 		Time& GetTime() { return m_time; }
-		ParticleSystem& GetPS() { return m_particleSystem; }
-		Audio& GetAudio() { return m_audio; }
-
 		Editor& GetEditor() { return *m_editor; }
-
 
 	private:
 		Engine() = default;
@@ -54,12 +47,8 @@ namespace nu {
 	private:
 		Input m_input;
 		Renderer m_renderer;
-		Audio m_audio;
-		ParticleSystem m_particleSystem;
-
 		Time m_time;
-
-		std::unique_ptr <Editor > m_editor;
+		std::unique_ptr<Editor> m_editor;
 
 	};
 

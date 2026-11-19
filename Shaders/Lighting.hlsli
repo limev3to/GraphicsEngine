@@ -4,15 +4,18 @@
 #define LIGHT_POINT       1
 #define LIGHT_SPOT        2
 
+//#define MAX_LIGHTS 8
 static const uint MAX_LIGHTS = 8;
 
 struct Material
 {
-    float4 color;
+    float4 baseColor;
+    float3 specularColor;
+    float1 shininess;
+    float3 emissiveColor;
+    float1 padding;
     float2 tiling;
     float2 offset;
-    float shininess;
-    float3 padding;
 };
 
 struct Light

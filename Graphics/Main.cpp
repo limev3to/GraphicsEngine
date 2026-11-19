@@ -6,7 +6,7 @@
 #include "Renderer/Pipeline.h"
 #include "Framework/Scene.h"
 
-#include "Components/CameraComponent.h";
+#include "Components/CameraComponent.h"
 
 #include "Resources/ResourceManager.h"
 
@@ -24,7 +24,6 @@ int main()
 
     // INITIALIZATION
     Engine::Get().Initialize();
-    Engine::Get().GetAudio().Initialize();
 
     Scene scene;
     scene.Load("scenes/scene.json");
@@ -80,8 +79,6 @@ int main()
             }
         }
 
-        Engine::Get().GetAudio().Update();
-        
         // ENGINE
         Engine::Get().Update();
         float dt = Engine::Get().GetTime().GetDeltaTime();
@@ -92,7 +89,7 @@ int main()
 
         // EDITOR
         Engine::Get().GetEditor().BeginFrame();
-        Engine::Get().GetEditor().Update();
+        Engine::Get().GetEditor().Update(scene);
 
         // RENDER
         renderer.BeginFrame();
@@ -106,8 +103,6 @@ int main()
     }
 
     // SHUTDOWN
-    Engine::Get().GetAudio().Shutdown();
-
     Engine::Get().Shutdown();
 
     return 0;

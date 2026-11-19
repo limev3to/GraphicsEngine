@@ -19,9 +19,6 @@
     <Filter Include="Framework">
       <UniqueIdentifier>{eaf1e8a5-df1e-4b3c-bb89-0ee45a2de1fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Physics">
-      <UniqueIdentifier>{0a1e3c81-1374-4347-82be-16a0c6276120}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core">
       <UniqueIdentifier>{51e39f40-dd1d-416d-bfe3-c28324a8a1ea}</UniqueIdentifier>
     </Filter>
@@ -33,9 +30,6 @@
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{3714ca9e-1d47-4981-ae13-ea32140ef448}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Audio">
-      <UniqueIdentifier>{0fecef87-6b02-47f7-9eec-36425e35f24d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Input">
       <UniqueIdentifier>{2a98b44a-9ab0-4404-9404-dd36357a1093}</UniqueIdentifier>
@@ -56,9 +50,6 @@
     </ClInclude>
     <ClInclude Include="Components\RendererComponent.h">
       <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Audio\Audio.h">
-      <Filter>Audio</Filter>
     </ClInclude>
     <ClInclude Include="Core\Factory.h">
       <Filter>Core</Filter>
@@ -112,9 +103,6 @@
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Model.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\ParticleSystem.h">
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Renderer.h">
@@ -217,9 +205,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Audio\Audio.cpp">
-      <Filter>Audio</Filter>
-    </ClCompile>
     <ClCompile Include="Core\File.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -245,9 +230,6 @@
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Renderer\Model.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\ParticleSystem.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Renderer\Renderer.cpp">

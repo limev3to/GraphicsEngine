@@ -14,6 +14,8 @@ namespace nu
 
 		LightData GetLightData() const;
 
+		void UpdateGui() override;
+
 	private:
 		LightType m_type = LightType::Point;
 		glm::vec3 m_color{ 1.0f };
