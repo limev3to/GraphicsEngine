@@ -10,7 +10,6 @@
 #include "Editor/Editor.h"
 
 
-#include "Renderer/Text.h"
 #include "Renderer/Texture.h"
 
 #include "Core/Factory.h"

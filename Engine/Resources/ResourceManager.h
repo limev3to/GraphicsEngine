@@ -56,10 +56,6 @@ namespace nu {
 				return res_t<T>();
 			}
 
-			// store resource in map
-			resource->SetName(id);
-			m_resources[name] = resource;
-
 			// return resource
 			return resource;
 		}
@@ -73,6 +69,7 @@ namespace nu {
 		}
 
 		// add resource to resource manager
+		resource->SetName(id);
 		m_resources[id] = resource;
 
 		return resource;

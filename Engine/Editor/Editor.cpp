@@ -129,14 +129,13 @@ namespace nu
 	{
 		ImGui::Begin("Assets");
 
-		for (auto resource : Resources().GetAll()) 
+		for (auto& resource : Resources().GetAll()) 
 		{
 			ImGui::PushID(resource.second.get());
 			if (ImGui::Selectable(resource.second->GetName().c_str(), m_selected == resource.second.get()))
 			{
 				m_selected = resource.second.get();
 			}
-			ImGui::Text("%s", resource.second->GetName().c_str());
 			ImGui::PopID();
 		}
 

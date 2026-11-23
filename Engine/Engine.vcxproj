@@ -192,17 +192,14 @@
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Renderer\Font.h" />
     <ClInclude Include="Renderer\IndexBuffer.h" />
     <ClInclude Include="Renderer\Light.h" />
     <ClInclude Include="Renderer\Material.h" />
     <ClInclude Include="Renderer\MaterialInstance.h" />
-    <ClInclude Include="Renderer\Mesh.h" />
     <ClInclude Include="Renderer\Model.h" />
     <ClInclude Include="Renderer\Pipeline.h" />
     <ClInclude Include="Renderer\Renderer.h" />
     <ClInclude Include="Renderer\Shader.h" />
-    <ClInclude Include="Renderer\Text.h" />
     <ClInclude Include="Renderer\Texture.h" />
     <ClInclude Include="Renderer\Uniforms.h" />
     <ClInclude Include="Renderer\VertexBuffer.h" />
@@ -252,18 +249,17 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Renderer\Font.cpp" />
     <ClCompile Include="Renderer\IndexBuffer.cpp" />
     <ClCompile Include="Renderer\Material.cpp" />
     <ClCompile Include="Renderer\MaterialInstance.cpp" />
-    <ClCompile Include="Renderer\Mesh.cpp" />
     <ClCompile Include="Renderer\Model.cpp" />
     <ClCompile Include="Renderer\Pipeline.cpp" />
     <ClCompile Include="Renderer\Renderer.cpp" />
     <ClCompile Include="Renderer\Shader.cpp" />
-    <ClCompile Include="Renderer\Text.cpp" />
     <ClCompile Include="Renderer\Texture.cpp" />
     <ClCompile Include="Renderer\VertexBuffer.cpp" />
+    <ClCompile Include="Resources\Resource.cpp" />
+    <ClCompile Include="Resources\ResourceManager.cpp" />
     <ClCompile Include="Serialization\Json.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

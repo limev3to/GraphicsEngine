@@ -2,48 +2,15 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Shaders">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+      <UniqueIdentifier>{0116179a-7a4e-4a8d-a628-9f3b38dfbc5e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="color.frag.hlsl">
+    <CustomBuild Include="color.frag.hlsl">
       <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="position.vert.hlsl">
+    </CustomBuild>
+    <CustomBuild Include="position.vert.hlsl">
       <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="unlit.frag.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="unlit.vert.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="gouraud.frag.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="gouraud.vert.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="phong.vert.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="phong.frag.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="multi.frag.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="phong-normal.frag.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="lighting.hlsli">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="uniforms.hlsli">
-      <Filter>Shaders</Filter>
-    </None>
+    </CustomBuild>
   </ItemGroup>
 </Project>

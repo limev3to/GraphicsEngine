@@ -2,8 +2,6 @@
 #include "Uniforms.h"
 
 #include <SDL3/SDL.h>
-#include <SDL3_ttf/SDL_ttf.h>
-#include <SDL3_image/SDL_image.h>
 
 namespace nu
 {
@@ -57,7 +55,6 @@ namespace nu
 		void SetClearColor(const glm::vec3& clearColor) { m_clearColor = clearColor; }
 		const glm::vec3& GetClearColor() const { return m_clearColor; }
 
-		friend class Text;
 		friend class Texture;
 		friend class Shader;
 		friend class VertexBuffer;

@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Texture.h"
 #include "Renderer.h"
-#include <SDL3_image/SDL_image.h>
 
 namespace nu
 {

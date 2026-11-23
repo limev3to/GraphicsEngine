@@ -35,7 +35,7 @@ namespace nu {
 		}
 
 	protected:
-		std::string m_name = "";
+		std::string m_name{};
 		bool m_active = true;
 	};
 }

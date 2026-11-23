@@ -30,37 +30,37 @@ int main()
 
     auto& renderer = Engine::Get().GetRenderer();
 
-    for (int i = 0; i < 5; i++)
-    {
-        auto cow = Factory::Instance().Create<Actor>("CowPrototype");
-        cow->SetPosition({ (rand() % 41) - 20, -0.5, (rand() % 41) - 20 });
-        cow->SetRotation({-90, rand() % 360, 0});
-        scene.AddActor(std::move(cow));
-    }
+    //for (int i = 0; i < 5; i++)
+    //{
+    //    auto cow = Factory::Instance().Create<Actor>("CowPrototype");
+    //    cow->SetPosition({ (rand() % 41) - 20, -0.5, (rand() % 41) - 20 });
+    //    cow->SetRotation({-90, rand() % 360, 0});
+    //    scene.AddActor(std::move(cow));
+    //}
 
-    for (int i = 0; i < 5; i++)
-    {
-        auto horse = Factory::Instance().Create<Actor>("HorsePrototype");
-        horse->SetPosition({ (rand() % 41) - 20, -0.5, (rand() % 41) - 20 });
-        horse->SetRotation({-90, rand() % 360, 0});
-        scene.AddActor(std::move(horse));
-    }
+    //for (int i = 0; i < 5; i++)
+    //{
+    //    auto horse = Factory::Instance().Create<Actor>("HorsePrototype");
+    //    horse->SetPosition({ (rand() % 41) - 20, -0.5, (rand() % 41) - 20 });
+    //    horse->SetRotation({-90, rand() % 360, 0});
+    //    scene.AddActor(std::move(horse));
+    //}
 
-    for (int i = 0; i < 5; i++)
-    {
-        auto bull = Factory::Instance().Create<Actor>("BullPrototype");
-        bull->SetPosition({ (rand() % 41) - 20, -0.5, (rand() % 41) - 20 });
-        bull->SetRotation({-90, rand() % 360, 0});
-        scene.AddActor(std::move(bull));
-    }
+    //for (int i = 0; i < 5; i++)
+    //{
+    //    auto bull = Factory::Instance().Create<Actor>("BullPrototype");
+    //    bull->SetPosition({ (rand() % 41) - 20, -0.5, (rand() % 41) - 20 });
+    //    bull->SetRotation({-90, rand() % 360, 0});
+    //    scene.AddActor(std::move(bull));
+    //}
 
-    for (int i = 0; i < 5; i++)
-    {
-        auto donkey = Factory::Instance().Create<Actor>("DonkeyPrototype");
-        donkey->SetPosition({ (rand() % 41) - 20, -0.5, (rand() % 41) - 20 });
-        donkey->SetRotation({-90, rand() % 360, 0});
-        scene.AddActor(std::move(donkey));
-    }
+    //for (int i = 0; i < 5; i++)
+    //{
+    //    auto donkey = Factory::Instance().Create<Actor>("DonkeyPrototype");
+    //    donkey->SetPosition({ (rand() % 41) - 20, -0.5, (rand() % 41) - 20 });
+    //    donkey->SetRotation({-90, rand() % 360, 0});
+    //    scene.AddActor(std::move(donkey));
+    //}
 
     // MAIN LOOP
     bool quit = false;

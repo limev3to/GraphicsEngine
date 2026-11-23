@@ -10,6 +10,9 @@
     <Filter Include="Assets\Materials">
       <UniqueIdentifier>{3f0a1205-c7f3-4407-8810-990f0f1b169b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Shaders">
+      <UniqueIdentifier>{bdcc9602-21c2-49b6-9c48-b5622d6f94fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Graphics\Main.cpp" />
@@ -33,5 +36,43 @@
     <None Include="..\Build\Assets\materials\lava.instance.json">
       <Filter>Assets\Materials</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\Shaders\color.frag.hlsl">
+      <Filter>Assets\Shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\gouraud.frag.hlsl">
+      <Filter>Assets\Shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\gouraud.vert.hlsl">
+      <Filter>Assets\Shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\lighting.hlsli">
+      <Filter>Assets\Shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\multi.frag.hlsl">
+      <Filter>Assets\Shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\phong.frag.hlsl">
+      <Filter>Assets\Shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\phong.vert.hlsl">
+      <Filter>Assets\Shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\phong-normal.frag.hlsl">
+      <Filter>Assets\Shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\position.vert.hlsl">
+      <Filter>Assets\Shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\uniforms.hlsli">
+      <Filter>Assets\Shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\unlit.frag.hlsl">
+      <Filter>Assets\Shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\unlit.vert.hlsl">
+      <Filter>Assets\Shaders</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

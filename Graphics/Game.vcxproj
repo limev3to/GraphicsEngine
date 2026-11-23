@@ -144,7 +144,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\SDL3\lib\$(PlatformTarget);$(SolutionDir)ThirdParty\assimp\lib\$(PlatformTarget)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sdl3.lib;sdl3_ttf.lib;sdl3_image.lib;assimp-vc143-mt.lib;SDL3.lib;SDL3_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sdl3.lib;sdl3_image.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/WHOLEARCHIVE:Engine.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreBuildEvent>
@@ -193,6 +193,44 @@
     <None Include="..\Build\Assets\materials\spot.instance.json" />
     <None Include="..\Build\Assets\materials\phong.material.json" />
     <None Include="..\Build\Assets\scenes\scene.json" />
+    <CustomBuild Include="..\Shaders\lighting.hlsli">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\uniforms.hlsli">
+      <FileType>Document</FileType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\Shaders\color.frag.hlsl">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\gouraud.frag.hlsl">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\gouraud.vert.hlsl">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\multi.frag.hlsl">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\phong-normal.frag.hlsl">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\phong.frag.hlsl">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\phong.vert.hlsl">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\position.vert.hlsl">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\unlit.frag.hlsl">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="..\Shaders\unlit.vert.hlsl">
+      <FileType>Document</FileType>
+    </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
